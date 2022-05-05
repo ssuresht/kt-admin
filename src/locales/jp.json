@@ -1,0 +1,89 @@
+{
+  "dashboard": {
+    "top": "TOP",
+    "job_registration_application": "求人登録申請",
+    "application_date_time": "申請日時",
+    "company_name": "企業名",
+    "application_deadline": "応募締切",
+    "push": "PUSH"
+  },
+  "Ok": "Okay",
+  "close": "Close",
+  "table_no_data_text": "表示できるデータはありません",
+  "Rejected": "差戻し",
+  "Awaiting": "未対応",
+  "Approved": "承認",
+  "awaiting_status_two": "更新",
+  "Male": "男性",
+  "Female": "女性",
+  "loading_table_items": "アイテムの読み込み",
+  "unauthenticated": "セッション切れです",
+
+  "sidebar": {
+    "link_titles": {
+      "top": "TOP",
+      "job_info": {
+        "title": "求人広告",
+        "list_all": "一覧",
+        "create_new": "新規作成",
+        "draft": "下書き",
+        "job_type_management": "職種管理",
+        "feature_management": "特徴管理"
+      },
+      "application": {
+        "title": "応募"
+      },
+      "feedback": {
+        "title": "フィードバック",
+        "list_all": "一覧",
+        "create_new": "新規作成"
+      },
+      "user_management": {
+        "title": "学生 ({count})"
+      },
+      "corporate": {
+        "title": "企業 ({count})",
+        "list_all": "一覧",
+        "create_new_corporation": "新規作成"
+      },
+      "applied_internship_list": "応募",
+      "column": {
+        "title": "コラム",
+        "list_all": "一覧",
+        "tag_management": "タグ管理"
+      },
+      "settings": {
+        "title": "その他",
+        "school_management": "教育機関",
+        "administrator_manage": "管理者管理",
+        "logout": "ログアウト"
+      }
+    }
+  },
+  "sidebar_link_title_top": "",
+
+  "validation": {
+    "login": {
+      "api_error_message": "メールアドレスまたはパスワードが違います"
+    },
+    "email_address_not_found": "登録されていないEメールアドレスでです"
+  },
+
+  "success_message": "更新が完了しました！",
+  "field_required_message": "入力されていない項目があります",
+  "field_max_message": "{length}文字まで入力してください",
+  "field_min_message": "{length}文字まで入力してください",
+  "field_size_message": "5MB以下の画像を登録してください",
+  "field_email_message": "正しい形式で入力してください。",
+  "field_min_value_message": "{min}からの数字を入力してください",
+  "field_max_value_message": "The maximum value should be {max}",
+  "field_password_confirmed_message": "入力されたパスワードが一致しません。",
+  "field_integer_message": "数字を指定してください to 半角数字でご入力ください ",
+  "field_must_be_url_message": "有効なURLを指定してください",
+  "field_allowed_only_en_lange_message": "ローマ字を入力してください",
+  "The given data was invalid.": "入力内容が有効ではありません。",
+  "field_verify_password_message": "パスワードは8文字以上で、英大文字・小文字・数字とシンボルの組み合わせで設定してください。",
+  "views": "閲覧数",
+  "field_required_message_with_field_name": "は必須項目です。",
+  "field_enter_half_width_numbers_hyphens": "半角の数字とハイフンを使用し入力してください"
+}

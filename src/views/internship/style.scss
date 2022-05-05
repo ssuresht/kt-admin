@@ -1,0 +1,134 @@
+::v-deep {
+  .v-input__append-outer {
+    width: 40px;
+  }
+}
+
+::v-deep.v-text-field {
+  label {
+    font-size: 18px !important;
+    color: #b8b8b8 !important;
+  }
+  .v-input__control {
+    min-height: 20px;
+
+    > .v-input__slot {
+      background-color: #fff !important;
+      box-shadow: none !important;
+      padding-top: 11px;
+      padding-bottom: 4px;
+      padding-left: 38px;
+      padding-right: 12px;
+      min-height: 25px;
+      input {
+        padding: 0;
+        height: 20px;
+        .v-input__append-outer {
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+/**=====Internship Create Page Job Title Field======***/
+::v-deep .job-title {
+  .v-label {
+    color: #b8b8b8;
+    font-size: 18px;
+  }
+}
+.button-width {
+  max-width: 259px !important;
+  .btn-container {
+    width: 100% !important;
+  }
+}
+
+
+.intern-detail-page {
+  .company-image {
+    .image-fluid {
+      border-radius: 20px;
+      &.no-border-radius {
+        border-radius: 0;
+      }
+    }
+    .heart-icon {
+      z-index: 1;
+      top: 35px;
+      right: 29px;
+    }
+    .post-counter {
+      bottom: 16px;
+      right: 20px;
+      z-index: 1
+    }
+  }
+  .tags-list {
+    .company-logo-tag {
+      .company-log-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 3px;
+      }
+    }
+    .tag-box {
+      border-radius: 5px;
+    }
+  } 
+  .feature-card-list {
+    .border-bottom {
+      border-bottom: 1px solid #E5E5E5;
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+  .advantages-card-list {
+    .bottom-line {
+      border: 1px solid #529AEE;
+      border-radius: 30px !important;
+      margin-bottom: 24px;
+      position: relative;
+      &:not(:last-child)::after{
+        content: "";
+        position: absolute;
+        height: 24px;
+        width: 1px;
+        background-color: #529AEE;
+        left: 32px;
+        bottom: -25px;
+      }
+      &:last-child {
+        margin-bottom: 0
+      }
+    }
+  }
+  .description-txts {
+    .desc-heading {
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
+      line-height: 1.8;
+    }
+    img {
+      max-width: 100% !important;
+    }
+  }
+  .btn-rounded {
+    border-radius: 50px;
+  }
+  .mobile-button-bottom {
+    position: fixed;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    width: auto;
+    margin: auto;
+    z-index: 10;
+    min-width: 293px !important;
+    max-width: 293px;
+  }
+}

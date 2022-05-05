@@ -1,0 +1,190 @@
+@import '@/styles/app';
+
+.reject-text {
+  padding-left: 3rem;
+}
+
+.white-dark-bg {
+  background: #F9F9F9;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  color: #7D7D7D !important;
+  padding: 5px 10px;
+  font-size: 14px !important;
+}
+
+.no-opacity {
+  opacity: 0;
+}
+
+.img-modal {
+  cursor: pointer;
+}
+
+.user-create-page {
+  .object-fit-cover {
+    object-fit: cover;
+  }
+  .object-fit-contain {
+    object-fit: contain;
+  }
+  .left-side-main {
+    max-width: 230px;
+    margin: auto;
+    .file-input-box {
+      .file-input-inr {
+        position: relative;
+        height: 188px;
+        width: 188px;
+        margin: auto;
+        .file-circle-icon {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          border-radius: 100%;
+          &.hide-icons {
+            & * {
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+            }
+          }
+        }
+        .image-preview {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .form-group {
+    position: relative;
+    label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 130px;
+      z-index: 1;
+      height: 24px;
+    }
+    .v-input {
+      fieldset {
+        border: 1px solid #b8b8b8;
+      }
+      input {
+        padding-left: 11rem;
+      }
+    }
+  }
+}
+
+.user-details-page {
+  .object-fit-cover {
+    object-fit: cover;
+  }
+  .object-fit-contain {
+    object-fit: contain;
+  }
+  .left-side-main {
+    max-width: 230px;
+    margin: auto;
+    .file-input-box {
+      .file-input-inr {
+        position: relative;
+        height: 188px;
+        width: 188px;
+        margin: auto;
+        .file-circle-icon {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          border-radius: 100%;
+          &.hide-icons {
+            & * {
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+            }
+          }
+        }
+        .image-preview {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .form-group {
+    position: relative;
+    border-bottom: 1px solid #b8b8b8;
+    label {
+      width: 130px;
+      height: 24px;
+      min-width: 130px;
+    }
+    .min-width-75px {
+      min-width: 75px;
+    }
+    .date-visa-input {
+      .v-input__slot {
+        &::before,
+        &::after {
+          display: none !important;
+        }
+      }
+      .date-picker-outr {
+        width: 125px;
+        height: 18px;
+        position: relative;
+        .date-formatter {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 20px;
+          z-index: 1;
+          white-space: nowrap;
+          span {
+            width: 9.5px;
+            height: 100%;
+            display: inline-block;
+            text-align: center;
+            &.date-underline {
+              // border-bottom: 2px solid $light-grey;
+            }
+          }
+        }
+      }
+      .v-input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+      }
+    }
+    .detail-right {
+      margin-left: 3rem;
+      // padding-left: 3rem;
+    }
+    &.blk-right {
+      .detail-right {
+        margin-left: 1.8rem;
+        // padding-left: 1.8rem;
+      }
+    }
+  }
+}

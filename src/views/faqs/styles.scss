@@ -1,0 +1,14 @@
+@import '@/styles/app';
+
+.faq-create-page {
+  .faq-footer-action {
+    position: relative;
+    .delete-btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}

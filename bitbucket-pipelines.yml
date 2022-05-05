@@ -1,0 +1,56 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+image: atlassian/default-image:3
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          name: 'Build and Test'
+          script:
+            - npm install
+            - npm run build:production
+          artifacts:
+            - dist/**
+
+      # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+      - step:
+          name: 'Deployment to dev'
+          deployment: staging
+          script:
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $ACCESS_KEY_ID # Optional if already defined in the context or OIDC used.
+                AWS_SECRET_ACCESS_KEY: $SECRET_ACCESS_KEY # Optional if already defined in the context or OIDC used.
+                AWS_DEFAULT_REGION: 'ap-northeast-1' # Optional if already defined in the context or OIDC used.
+                S3_BUCKET: 'kotonaru' # Required.
+                LOCAL_PATH: 'dist'
+                ACL: 'bucket-owner-full-control' # Optional.
+
+    staging:
+      - step:
+          name: 'Build and Test'
+          script:
+            - npm install
+            - npm run build:production
+          artifacts:
+            - dist/**
+
+      # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+      - step:
+          name: 'Deployment to Staging'
+          deployment: staging
+          script:
+            - pipe: atlassian/aws-s3-deploy:1.1.0
+              variables:
+                AWS_ACCESS_KEY_ID: $STG_ACCESS_KEY_ID # Optional if already defined in the context or OIDC used.
+                AWS_SECRET_ACCESS_KEY: $STG_SECRET_ACCESS_KEY # Optional if already defined in the context or OIDC used.
+                AWS_DEFAULT_REGION: 'us-east-1' # Optional if already defined in the context or OIDC used.
+                S3_BUCKET: 'stg.admin.kotonaru.co.jp' # Required.
+                LOCAL_PATH: 'dist'
+                ACL: 'bucket-owner-full-control' # Optional.
+
+

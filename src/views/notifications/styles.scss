@@ -1,0 +1,27 @@
+@import '@/styles/app';
+
+.ck {
+  &.ck-editor__editable {
+    &:not(.ck-editor__nested-editable) {
+      &.ck-focused {
+        border-color: #b8b8b8 !important;
+      }
+    }
+  }
+  &.ck-content {
+    height: 685px;
+  }
+}
+
+.notifications-create-page {
+  .notifications-footer-action {
+    position: relative;
+    .delete-btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}

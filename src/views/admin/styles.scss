@@ -1,0 +1,19 @@
+@import '@/styles/app';
+
+.admin-edit-page {
+  .admin-footer-action {
+    position: relative;
+    .delete-btn {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+  
+  .min-width-75px {
+    min-width: 110px;
+  }
+}
+

@@ -1,0 +1,73 @@
+.student-profile {
+  .report-table.v-data-table {
+    box-shadow: none !important;
+    border-radius: 0% !important;
+
+    table tbody{
+      tr:hover {
+        background-color: transparent !important;
+      }
+    }
+    tr:last-of-type {
+      td {
+        border-bottom: 1px solid #e5e5e5 !important;
+      }
+    }
+  }
+  .application-table {
+    tbody {
+      tr {
+        td:first-of-type {
+          border-bottom: 0px !important;
+        }
+        td:last-of-type {
+          border-bottom: 0px !important;
+        }
+      }
+      tr:last-of-type {
+        padding-bottom: 20px;
+      }
+    }
+  }
+  .elevation {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .border-radius {
+    border-radius: 5px;
+  }
+  .sidebar {
+    height: 585px;
+    width: 423px;
+  }
+  .h-585 {
+    height: 585px;
+  }
+  .form {
+    width: 100%;
+  }
+  .mb-82 {
+    margin-bottom: 82px;
+  }
+  .input-width {
+    width: 140px;
+  }
+  .main {
+    width: 709px;
+    #details {
+      max-width: 291px;
+      width: 291px;
+    }
+    #description {
+      width: 303px;
+    }
+  }
+}
+.panel {
+  border-bottom: 1px solid #e5e5e5;
+}
+.panel-content {
+  .v-expansion-panel-content__wrap {
+    padding-left: 0px;
+    padding-bottom: 30px;
+  }
+}

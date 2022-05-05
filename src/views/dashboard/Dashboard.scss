@@ -1,0 +1,39 @@
+.dashboard-page {
+  .d-flex.w-100 {
+    width: 100%;
+    & > *:not(.w-auto) {
+      width: 100%;
+    }
+  }
+  .tbl-heading-text {
+    letter-spacing: 0.8em;
+    height: 30px;
+  }
+  .v-data-table {
+    &.classified-ads {
+      .v-data-table__wrapper {
+        table {
+          tbody {
+            tr,
+            td,
+            tr:not(:last-child) > td:not(.v-data-table__mobile-row) {
+              border: none;
+            }
+          }
+          .ads-img-left {
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+  }
+  .chart-left-box {
+    background-color: #f9f9f9;
+    width: 184px;
+    min-width: 184px;
+    height: 204px;
+    .send-icon-width {
+      width: 22px;
+    }
+  }
+}

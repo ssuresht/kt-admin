@@ -1,0 +1,85 @@
+{
+  "dashboard": {
+    "top": "TOP",
+    "push": "PUSH"
+  },
+  "Ok": "Okay",
+  "close": "Close",
+  "table_no_data_text": "No data found",
+  "Rejected": "Rejected",
+  "Awaiting": "Register",
+  "Approved": "Approved",
+  "awaiting_status_two": "Updated",
+  "Male": "Male",
+  "Female": "Female",
+  "loading_table_items": "Loading Items",
+  "unauthenticated": "Unauthenticated",
+
+  "sidebar": {
+    "link_titles": {
+      "top": "TOP",
+      "job_info": {
+        "title": "求人広告",
+        "list_all": "一覧",
+        "create_new": "新規作成",
+        "draft": "下書き",
+        "job_type_management": "職種管理",
+        "feature_management": "特徴管理"
+      },
+      "application": {
+        "title": "応募"
+      },
+      "feedback": {
+        "title": "フィードバック",
+        "list_all": "一覧",
+        "create_new": "新規作成"
+      },
+      "user_management": {
+        "title": "学生 ({count})"
+      },
+      "corporate": {
+        "title": "企業 ({count})",
+        "list_all": "一覧",
+        "create_new_corporation": "新規作成"
+      },
+      "applied_internship_list": "応募",
+      "column": {
+        "title": "コラム",
+        "list_all": "一覧",
+        "tag_management": "タグ管理"
+      },
+      "settings": {
+        "title": "その他",
+        "school_management": "教育機関",
+        "administrator_manage": "管理者管理",
+        "logout": "ログアウト"
+      }
+    }
+  },
+  "sidebar_link_title_top": "",
+
+  "validation": {
+    "login": {
+      "api_error_message": "Wrong email address or password"
+    },
+    "email_address_not_found": "Email address not found"
+  },
+
+  "success_message": "The update is complete!",
+  "field_required_message": "This field is required",
+  "field_max_message": "Please enter up to {length} characters",
+  "field_min_message": "Please enter up to {length} characters",
+  "field_size_message": "The {_field_} field size must be less than {size}KB",
+  "field_email_message": "Please enter the correct format for your email address.",
+  "field_min_value_message": "input the integer from {min}.",
+  "field_max_value_message": "This field maximum value should be {max}",
+  "field_password_confirmed_message": "Please enter the same password",
+  "field_integer_message": "Please enter integer value",
+  "field_must_be_url_message": "This value must be a valid URL",
+  "field_allowed_only_en_lange_message": "Only english charactor's are allowed",
+  "The given data was invalid.": "The given data was invalid.",
+  "field_verify_password_message": "The password must be at least 8 characters and should be set with a combination of uppercase and lowercase letters, numbers and symbols.",
+  "field_required_message_with_field_name": " field is required",
+  "views": "views",
+  "field_employee_number_message": " is not valid"
+}
