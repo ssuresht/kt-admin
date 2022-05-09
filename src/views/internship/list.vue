@@ -73,6 +73,20 @@
         })
       "
     >
+    <template v-slot:[`item.title`]="{ item }">
+        <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <span
+          v-bind="attrs"
+          v-on="on"
+          class="internship-title"
+        >
+           {{ item.title ? item.title : '-' }}
+        </span>
+      </template>
+      <span> {{ item.title ? item.title : '-' }}</span>
+    </v-tooltip>
+      </template>
       <template v-slot:[`item.company_name`]="{ item }">
         {{ item.company ? item.company.name : '-' }}
       </template>
@@ -83,7 +97,7 @@
         {{
           item.created_at && item.created_at != ''
             ? item.created_at
-            : '---- / - / -' | moment('YYYY/MM/DD H:mm')
+            : '---- / - / -' | moment('YYYY/MM/DD')
         }}
       </template>
     </DataTable>
@@ -120,37 +134,37 @@ export default {
       headers: [
         {
           text: 'ID',
-          align: 'center',
+          align: 'left',
           sortable: false,
           value: 'id'
         },
         {
           text: '求人タイトル',
-          align: 'center',
+          align: 'left',
           sortable: false,
           value: 'title'
         },
         {
           text: '企業名',
-          align: 'center',
+          align: 'left',
           sortable: false,
           value: 'company_name'
         },
         {
           text: '職種',
-          align: 'center',
+          align: 'left',
           sortable: false,
           value: 'work_category_name'
         },
         {
           text: '公開日',
-          align: 'center',
+          align: 'left',
           sortable: true,
           value: 'created_at'
         },
         {
           text: '',
-          align: 'center',
+          align: 'left',
           sortable: false,
           value: 'favorites_count',
           heartIcon: true,
@@ -159,7 +173,7 @@ export default {
         },
         {
           text: '',
-          align: 'center',
+          align: 'left',
           value: 'applications_count',
           paperPlaneIcon: true,
           sortable: true,
@@ -170,6 +184,7 @@ export default {
   },
   created() {
     this.getDataFromApi()
+    console.log(this.getAllInternship)
   },
   computed: {
     ...mapGetters([
@@ -292,4 +307,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+/* shortening list title field*/
+.internship-title{
+  max-width: 210px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+</style>

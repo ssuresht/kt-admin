@@ -11,7 +11,8 @@ const getters = {
   getApprovedCompanies: state =>
     state.master.total_companies - state.master.total_companies_not_approved,
   getEducationFacilityType: state => state.master.educational_facility_type,
-  getTotalStudents: state => state.master.total_students
+  getTotalStudents: state => state.master.total_students,
+  getTotalUnreadApplications: state => state.master.total_unread_applications
 }
 
 const actions = {

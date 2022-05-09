@@ -105,6 +105,9 @@ html,
     .text-3f74c2 {
       color: #3f74c2 !important;
     }
+    .text-delete {
+      color: #E14D56
+    }
     .top-12 {
       top: 12.5%;
     }
@@ -606,7 +609,9 @@ html,
   color: #12aba3 !important;
   border: 1px solid #12aba3;
 }
-
+.text-decoration-none{
+  text-decoration: none !important;
+}
 @media screen and (min-width: 1904px) {
   .container {
     max-width: 1500px;

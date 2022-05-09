@@ -40,7 +40,7 @@
                 class="white--text mt-6"
                 min-width="150px"
                 width="259px"
-                >公開</v-btn
+                >更新＆公開</v-btn
               >
               <br />
               <v-btn

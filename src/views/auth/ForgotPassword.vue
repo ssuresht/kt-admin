@@ -63,6 +63,11 @@
               </validation-observer>
             </div>
           </v-col>
+          <v-col cols="12" v-if="send_email">
+            <div class="login-main-blk">
+              <v-alert type="success"    color="#13aba3" >メールを送信しました。</v-alert>
+            </div>
+          </v-col>
         </v-row>
       </v-container>
     </section>
@@ -82,7 +87,8 @@ export default {
   data() {
     return {
       error: '',
-      email: ''
+      email: '',
+      send_email: ''
     }
   },
   created() {
@@ -98,17 +104,18 @@ export default {
           return
         }
         let email = this.email
-        let reset_url = `${process.env.VUE_APP_DEV_URL}update-password`;
+        let reset_url = `${process.env.VUE_APP_DEV_URL}update-password`
         this.$store
-          .dispatch('AUTH_FORGOT', { email,reset_url })
+          .dispatch('AUTH_FORGOT', { email, reset_url })
           .then(response => {
             if (response.status === 200) {
-              this.$router.push({ name: 'home' })
+              this.send_email = true
+              this.$router.push({ name: 'ForgotPassword' })
             }
           })
           .catch(error => {
             if (error.status == 404)
-              this.error = this.$t('validation.email_address_not_found')
+              this.error =error.data.error
           })
       })
     }

@@ -70,6 +70,11 @@
       @submitSuccess="saveAsDraft()"
       @closeModel="dialog.saveAsDraft = false"
     ></SimpleModel>
+    <InterPreviewModel
+      :dialog="dialog.preview"
+      @submitSuccess="preview()"
+      @closeModel="dialog.preview = false"
+    ></InterPreviewModel>
   </div>
 </template>
 
@@ -78,6 +83,7 @@ import PageTitle from '@/components/ui/PageTitle'
 import InternshipBasicInformation from '@/components/pages/PostInputs'
 import ImageUpload from '@/components/ui/ImageUpload'
 import SimpleModel from '@/components/models/SimpleModel'
+import InterPreviewModel from '@/components/models/InterPreviewModel'
 import InternshipMixins from './internship.mixin'
 
 export default {
@@ -86,7 +92,8 @@ export default {
     InternshipBasicInformation,
     PageTitle,
     ImageUpload,
-    SimpleModel
+    SimpleModel,
+    InterPreviewModel
   },
   mixins: [InternshipMixins],
   data() {
@@ -94,22 +101,15 @@ export default {
       title: '求人広告',
       subTitle: '新規作成',
       dialog: {
-        saveAsDraft: false
+        saveAsDraft: false,
+        preview: false
       }
     }
   },
   created() {
     this.getPageFields()
-    this.getCompanyDataFromApi()
   },
   methods: {
-    async getCompanyDataFromApi() {
-      await this.$store
-        .dispatch('COMPANY_GET_ALL', { showActive: 1 })
-        .finally(() => {
-          this.getPageFields()
-        })
-    },
     submitInformation(isDraftCheck = 'N') {
       this.isDraftOrPublic = '0' // draft post
       // Re-add required to rules If draft button is not clicked

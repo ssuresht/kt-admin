@@ -97,6 +97,24 @@ const actions = {
           dispatch('API_PROCESSING', false, { root: true })
         })
     })
+  },
+
+  ['FEEDBACK_DELETE']: ({ commit, dispatch }, params) => {
+    return new Promise((resolve, reject) => {
+      dispatch('API_PROCESSING', true, { root: true })
+      commit('FEEDBACK_REQUEST')
+      axios
+        .delete(`/admin/feedback/${params.id}`, params)
+        .then(response => {
+          resolve(response)
+        })
+        .catch(err => {
+          reject(err)
+        })
+        .finally(() => {
+          dispatch('API_PROCESSING', false, { root: true })
+        })
+    })
   }
 }
 

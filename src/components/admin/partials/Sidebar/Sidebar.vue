@@ -90,9 +90,12 @@ export default {
         const svgPath = item.querySelector(
           '.v-treeview-node__prepend > span > svg > path'
         )
-        link.classList.add('text-primary')
+        setTimeout(() => {
+          link.classList.add('text-primary')
+        }, 1000)
+
         svg.classList.add('active-svg')
-        if(svg.classList.contains('search-icon')){
+        if (svg.classList.contains('search-icon')) {
           svg.classList.add('search-icon-stroke')
         }
         svgPath.classList.add('active-svg')
@@ -121,6 +124,7 @@ export default {
           const subMenu =
             item.querySelector('.v-treeview-node__children') &&
             item.querySelector('.v-treeview-node__children')
+
           for (let i = 0; i < subMenu.children.length; i++) {
             subMenu.children[i].addEventListener('click', () => {
               for (let j = 0; j < subMenu.children.length; j++) {
@@ -140,6 +144,7 @@ export default {
                 childSvg.classList.remove('svg-active')
                 childSvgPath.classList.remove('svg-active')
               }
+
               const child = subMenu.children[i].querySelector(
                 '.v-treeview-node__content'
               )
@@ -156,10 +161,11 @@ export default {
               childSvgPath.classList.add('svg-active')
               setTimeout(() => {
                 text.classList.add('text-primary')
-              }, 100)
+              }, 1000)
             })
           }
         }
+
         var text
         if (item.classList.contains('v-treeview-node--leaf')) {
           text = item.querySelector('.v-treeview-node__label > div > a')
@@ -167,7 +173,7 @@ export default {
           text = item.querySelector('.v-treeview-node__label > div > span')
         }
         const svg = item.querySelector('.v-treeview-node__prepend > span > svg')
-         if(svg.classList.contains('search-icon')){
+        if (svg.classList.contains('search-icon')) {
           svg.classList.add('search-icon-stroke')
         }
         const svgPath = item.querySelector(
@@ -177,12 +183,17 @@ export default {
         svgPath.classList.add('active-svg')
         setTimeout(() => {
           text.classList.add('text-primary')
-        }, 100)
+        }, 1000)
       })
     })
   },
   computed: {
-    ...mapGetters(['user', 'getApprovedCompanies', 'getTotalStudents']),
+    ...mapGetters([
+      'user',
+      'getApprovedCompanies',
+      'getTotalStudents',
+      'getTotalUnreadApplications'
+    ]),
     ...mapState(['drawer']),
     DRAWER_STATE: {
       get() {
@@ -247,7 +258,7 @@ export default {
           title: this.$t('sidebar.link_titles.application.title'),
           icon: '$PaperPlaneIcon',
           model: false,
-          badgeCount: 2,
+          badgeCount: this.$store.getters.getTotalUnreadApplications,
           class: 'hide-count-on-open',
           link: { name: 'Applications' }
         },

@@ -3,6 +3,7 @@ import axios from '@/services/api'
 import {
   APPLICATION_REQUEST,
   APPLICATION_GET_ALL,
+  APPLICATION_GET_ALL_SUCCESS,
   APPLICATION_GET,
   APPLICATION_GET_SUCCESS,
   APPLICATION_CREATE,
@@ -21,7 +22,8 @@ function initialState() {
     application: [],
     singleApplication: {},
     applicationPagination: null,
-    csvData: null
+    csvData: null,
+    applicationCounts: {}
   }
 }
 
@@ -32,7 +34,8 @@ const getters = {
   getSingleApplication: state => state.singleApplication,
   getApplicationPagination: state => state.applicationPagination,
   getApplicationCategories: state => state.applicationCategories,
-  getApplicationCsvData: state => state.csvData
+  getApplicationCsvData: state => state.csvData,
+  getApplicationCounts: state => state.applicationCounts,
 }
 
 const actions = {
@@ -137,7 +140,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit('APPLICATION_REQUEST')
       axios
-        .put(`/admin/company/${params.id}`, params)
+        .put(`/admin/applications/${params.id}`, params)
         .then(response => {
           let data = response.data.data
           commit('APPLICATION_UPDATE_SUCCESS', { data })
@@ -188,11 +191,12 @@ const mutations = {
   [GET_APPLICATION_CATEGORY_SUCCESS]: (state, payload) => {
     state.applicationCategories = payload
   },
-  // [APPLICATION_GET_ALL_SUCCESS]: (state, payload) => {
-  //   state.status = 'success'
-  //   state.application = payload.data.data.data
-  //   state.applicationPagination = payload.paginate
-  // },
+  [APPLICATION_GET_ALL_SUCCESS]: (state, payload) => {
+    state.status = 'success'
+    state.application = payload.data.data.data
+    state.applicationPagination = payload.paginate
+    state.applicationCounts = payload.data.counts
+  },
 
   [APPLICATION_GET_SUCCESS]: (state, payload) => {
     state.status = 'success'

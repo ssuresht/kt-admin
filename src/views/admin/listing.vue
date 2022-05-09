@@ -61,10 +61,10 @@ export default {
       headers: [
         {
           text: '管理者名',
-          align: 'start',
+          align: 'center',
           sortable: false,
           value: 'name',
-          width: '6.75%'
+          width: '15%'
         },
         {
           text: 'メールアドレス',

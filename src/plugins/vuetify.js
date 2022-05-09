@@ -48,12 +48,20 @@ import CalenderIcon from '@/components/icons/CalenderIcon'
 import FingerTouch from '@/components/icons/FingerTouch'
 import FavouritedIcon from '@/components/icons/FavouritedIcon'
 import GreenCross from '@/components/icons/GreenCross'
+import LeftArrow from '@/components/icons/LeftArrow'
+import RightArrow from '@/components/icons/RightArrow'
 
 Vue.use(Vuetify)
 const opts = {
   icons: {
     iconfont: 'mdi', // default - only for display purposes
     values: {
+      LeftArrow:{
+        component: LeftArrow
+      },
+     RightArrow: {
+        component: RightArrow
+      },
       GreenCross:{
         component: GreenCross
       },

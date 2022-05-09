@@ -153,12 +153,6 @@ const routes = [
         meta: { title: '求人広告 - 編集' }
       },
       {
-        path: '/internship-preview',
-        name: 'InternshipPostPreview',
-        component: () => import('@/views/internship/preview.vue'),
-        meta: { title: '求人広告 - 編集' }
-      },
-      {
         path: '/internship-list',
         name: 'InternshipPostList',
         component: () => import('@/views/internship/list.vue'),

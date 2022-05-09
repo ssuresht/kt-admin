@@ -132,9 +132,6 @@ export default {
   created() {
     this.getDataFromApi()
   },
-  async mounted() {
-    await this.$store.dispatch('GET_MASTER_DATA')
-  },
   computed: {
     ...mapGetters([
       'getAllCorporate',

@@ -7,8 +7,14 @@
         tabs: [
           {
             title: '応募済',
-            count: 70,
-            notification: '2',
+            count:
+              getApplicationCounts && getApplicationCounts[0]
+                ? getApplicationCounts[0].total_applied
+                : 0,
+            notification:
+              getApplicationCounts && getApplicationCounts[0]
+                ? getApplicationCounts[0].admin_read
+                : 0,
             action: () => {
               selection = 1
               generateItems(1)
@@ -16,7 +22,14 @@
           },
           {
             title: '合格済',
-            count: 5,
+            count:
+              getApplicationCounts && getApplicationCounts[1]
+                ? getApplicationCounts[1].total_passed
+                : 0,
+            notification:
+              getApplicationCounts && getApplicationCounts[1]
+                ? getApplicationCounts[1].admin_read
+                : 0,
             action: () => {
               selection = 2
               generateItems(2)
@@ -24,7 +37,14 @@
           },
           {
             title: '完了',
-            count: 5,
+            count:
+              getApplicationCounts && getApplicationCounts[2]
+                ? getApplicationCounts[2].total_completed
+                : 0,
+            notification:
+              getApplicationCounts && getApplicationCounts[2]
+                ? getApplicationCounts[2].admin_read
+                : 0,
             action: () => {
               selection = 3
               generateItems(3)
@@ -32,7 +52,14 @@
           },
           {
             title: '不合格',
-            count: 3,
+            count:
+              getApplicationCounts && getApplicationCounts[3]
+                ? getApplicationCounts[3].total_failed
+                : 0,
+            notification:
+              getApplicationCounts && getApplicationCounts[3]
+                ? getApplicationCounts[3].admin_read
+                : 0,
             action: () => {
               selection = 4
               generateItems(4)
@@ -40,8 +67,14 @@
           },
           {
             title: '辞退済',
-            count: 3,
-            notification: '1',
+            count:
+              getApplicationCounts && getApplicationCounts[4]
+                ? getApplicationCounts[4].total_declined
+                : 0,
+            notification:
+              getApplicationCounts && getApplicationCounts[4]
+                ? getApplicationCounts[4].admin_read
+                : 0,
             action: () => {
               selection = 5
               generateItems(5)
@@ -77,6 +110,7 @@
         v-bind="{ toggleSearch, selectTypeOptions, searchFields }"
         @toggleSearch="toggleSearch = false"
         @changedInputType="changedInputType($event)"
+        @searchSubmit="searchSubmit($event)"
       ></SearchArea>
     </v-fade-transition>
     <DataTable
@@ -91,33 +125,91 @@
         <div class="position-relative">
           {{ item.id }}
           <div class="position-absolute" style="top: 0%; left: 0px">
-            <v-icon size="6px" v-if="item.notification">$notification</v-icon>
+            <v-icon size="6px" v-if="!item.is_admin_read">$notification</v-icon>
           </div>
         </div>
       </template>
+
       <template v-slot:item.job_id="{ item }">
         <div class="font-12px fw-400">
-          {{ item.company.internal_company_id }}
+          {{ item.internship_post.id }}
         </div>
-        <div class="text-3f74c2 mouse-pointer">
-          {{ item.internship_post.title }}
+        <div class="mouse-pointer">
+          <router-link
+            target="_blank"
+            class="text-3f74c2 text-decoration-none truncate-lines lines-1"
+            :to="{
+              name: 'InternshipPostEdit',
+              params: { id: item.internship_post.id },
+            }"
+          >
+            <v-tooltip top color="white">
+              <template v-slot:activator="{ on }">
+                <span v-on="on">{{ item.internship_post.title }}</span>
+              </template>
+              <span class="text-333"> {{ item.internship_post.title }}</span>
+            </v-tooltip>
+          </router-link>
         </div>
       </template>
+
       <template v-slot:item.company_id="{ item }">
         <div class="font-12px fw-400">
           {{ item.company.internal_company_id }}
         </div>
-        <div class="text-3f74c2 mouse-pointer">{{ item.company.name }}</div>
+        <div class="mouse-pointer">
+          <router-link
+            target="_blank"
+            class="text-3f74c2 text-decoration-none truncate-lines lines-1"
+            :to="{
+              name: 'CorporateEdit',
+              params: { id: item.company.id },
+            }"
+          >
+            <v-tooltip top color="white">
+              <template v-slot:activator="{ on }">
+                <span v-on="on">{{ item.company.name }}</span>
+              </template>
+              <span class="text-333"> {{ item.company.name }}</span>
+            </v-tooltip>
+          </router-link>
+        </div>
       </template>
       <template v-slot:item.student_id="{ item }">
-        <div class="font-12px fw-400">{{ item.student.id }}</div>
-        <div class="text-3f74c2 mouse-pointer">
-          {{ item.student.family_name }} {{ item.student.first_name }}
+        <div class="font-12px fw-400">
+          {{ item.student.student_internal_id }}
+        </div>
+        <div class="mouse-pointer">
+          <router-link
+            target="_blank"
+            class="text-3f74c2 text-decoration-none truncate-lines lines-1"
+            :to="{
+              name: 'StudentProfile',
+              params: { id: item.student.id },
+            }"
+          >
+            <v-tooltip top color="white">
+              <template v-slot:activator="{ on }">
+                <span v-on="on">
+                  {{ item.student.family_name }}
+                  {{ item.student.first_name }}</span
+                >
+              </template>
+              <span class="text-333">
+                {{ item.student.family_name }}
+                {{ item.student.first_name }}</span
+              >
+            </v-tooltip>
+          </router-link>
         </div>
       </template>
       <template v-slot:item.university="{ item }">
-        <div class="font-12px fw-400">{{ item.student.university_name }}</div>
-        <div class="">{{ item.student.email_valid }}</div>
+        <div class="font-12px fw-400">
+          {{ item.student.education_facility.name }}
+        </div>
+        <div class="truncate-lines lines-1">
+          {{ item.student.obfuscate_email }}
+        </div>
       </template>
       <template v-slot:item.created_at="{ item }">
         <div class="font-12px fw-400">{{ dateFormat(item.created_at) }}</div>
@@ -151,7 +243,7 @@
                 class="mouse-pointer font-12px fw-400"
                 v-for="(option, index) in options"
                 :key="index"
-                @click="item.status = option"
+                @click="statusChange(item, option)"
               >
                 <v-list-item-title>{{ option | status }}</v-list-item-title>
               </v-list-item>
@@ -160,6 +252,11 @@
           <v-icon
             size="21px"
             class="ml-7"
+            @click="
+              $router.push({
+                name: 'FeedbackCreate',
+              })
+            "
             v-if="item.status === 2 || item.status === 3"
             >$message</v-icon
           >
@@ -201,6 +298,8 @@ export default {
       items: [],
       totalPages: 0,
       totalRecords: 0,
+      searchFields: [],
+      activeStatus: 1,
       selectTypeOptions: [
         {
           id: 'keyword_search',
@@ -211,6 +310,12 @@ export default {
           name: '応募日',
         },
       ],
+      configuration: {
+        page: 1,
+        sort_by: 'id',
+        sort_by_order: 'desc',
+        paginate: 25,
+      },
     }
   },
   computed: {
@@ -218,16 +323,11 @@ export default {
       'getAllApplication',
       'getApplicationPagination',
       'getApplicationCsvData',
+      'getApplicationCounts',
     ]),
     getHeaders() {
       if (this.selection < 5) {
         return [
-          {
-            text: '',
-            align: 'center',
-            sortable: false,
-            width: '1.9%',
-          },
           {
             text: 'ID',
             value: 'id',
@@ -237,7 +337,7 @@ export default {
             width: '3.9%',
           },
           {
-            text: '企業ID',
+            text: '求人ID',
             subText: '求人タイトル',
             value: 'job_id',
             align: 'left',
@@ -252,7 +352,7 @@ export default {
             class: ['px-0'],
             value: 'company_id',
             sortable: false,
-            width: '17.43%',
+            width: '15.43%',
           },
           {
             text: '学生ID',
@@ -261,7 +361,7 @@ export default {
             value: 'student_id',
             align: 'left',
             sortable: false,
-            width: '8.194%',
+            width: '12.194%',
           },
           {
             text: '大学名',
@@ -270,7 +370,7 @@ export default {
             class: ['px-0'],
             align: 'left',
             sortable: false,
-            width: '15%',
+            width: '18%',
           },
           {
             text: '応募日',
@@ -278,7 +378,7 @@ export default {
             align: 'left',
             class: ['px-0'],
             value: 'created_at',
-            width: '14.90%',
+            width: '10.90%',
           },
           {
             text: '更新日',
@@ -286,7 +386,7 @@ export default {
             align: 'left',
             class: ['px-0'],
             value: 'update_date',
-            width: '7.22%',
+            width: '9.22%',
           },
           {
             text: '',
@@ -385,12 +485,25 @@ export default {
   },
   created() {
     this.changedInputType('keyword_search')
-    this.generateItems(1)
   },
   methods: {
+    async statusChange(item, option) {
+      let params = {
+        id: item.id,
+        company_id: item.company_id,
+        student_id: item.student_id,
+        internship_post_id: item.internship_post_id,
+        is_admin_read: item.is_admin_read,
+        cancel_status: item.cancel_status,
+        status: option,
+      }
+      await this.$store.dispatch('APPLICATION_UPDATE', params)
+      this.generateItems()
+    },
     updateTable(e) {
-      this.items = []
-      this.generateItems(e)
+      this.configuration.sort_by = e.sortBy.length ? e.sortBy[0] : 'id'
+      this.configuration.sort_by_order = e.sortDesc[0] ? 'desc' : 'asc'
+      this.generateItems()
     },
     async downloadCsv() {
       await this.$store.dispatch('APPLICATION_EXPORT_CSV')
@@ -404,7 +517,7 @@ export default {
       fileLink.href = fileUrl
       fileLink.setAttribute(
         'download',
-        ` 応募 ${this.$moment().format('YYYYMMDD')}.csv`
+        ` 応募情報_${this.$moment().format('YYYYMMDD')}.csv`
       )
       document.body.appendChild(fileLink)
       fileLink.click()
@@ -421,7 +534,6 @@ export default {
               type: 'text',
               value: null,
               placeholder: '企業ID、企業名、学生ID、学生名、大学名',
-              rules: 'required',
             },
           ]
           break
@@ -429,17 +541,18 @@ export default {
           this.searchFields = [
             {
               label: 'Label',
-              name: 'created_at_start',
+              name: 'date_from',
               type: 'date',
               rules: 'required',
               show_after_approx: true,
               value: `${this.$moment().format('YYYY-MM-DD')}`,
               menu: false,
               locale: 'ja',
+              date_format: 'YYYY-MM-DD 00:00',
             },
             {
               label: 'Label',
-              name: 'created_at_end',
+              name: 'date_to',
               type: 'date',
               rules: 'required',
               show_after_approx: false,
@@ -447,7 +560,8 @@ export default {
               menu: false,
               locale: 'ja',
               range: true,
-              range_input: 'created_at_start',
+              range_input: 'date_from',
+              date_format: 'YYYY-MM-DD 00:00',
             },
           ]
       }
@@ -469,26 +583,45 @@ export default {
         return '#C771B5'
       }
     },
-    async generateItems(e) {
+    async generateItems(status = null, obj = {}) {
       this.loading = true
+      this.items = []
+      this.configuration.status = status ? status : this.activeStatus
+      this.activeStatus = status
+      if (obj.search == '') {
+        delete this.configuration.search
+      } else {
+        this.configuration.search = obj.search
+      }
+      if (obj.date_from != '' && obj.date_to != '') {
+        this.configuration.date_from = obj.date_from
+        this.configuration.date_to = obj.date_to
+      } else {
+        delete this.configuration.date_from
+        delete this.configuration.date_to
+      }
 
-      let data = {}
-      data.sort_by_order = e?.sortDesc[0] ? 'asc' : 'desc'
-      data.sort_by = e?.sortBy[0] ? e.sortBy[0] : 'created_at'
-      data.page = e?.page ? e.page : 1
-      data.paginate = e?.itemsPerPage ? e.itemsPerPage : 25
-      data.status = '1'
-      let response = await this.$store.dispatch('APPLICATION_GET_ALL', data)
-      console.log(response)
+      let response = await this.$store.dispatch(
+        'APPLICATION_GET_ALL',
+        this.configuration
+      )
 
       this.totalPages = response.data.data.paginate.total_pages
       this.totalRecords = response.data.data.paginate.records_total
-      console.log(this.totalRecords)
       response.data.data.data.forEach((item) => {
         this.items.push(item)
       })
       this.total = response.data.total
       this.loading = false
+    },
+    searchSubmit($event) {
+      let obj = {}
+      if ($event.fields.length > 0) {
+        $event.fields.forEach((field) => {
+          obj[field.name] = field.value
+        })
+        this.generateItems(this.activeStatus, obj)
+      }
     },
   },
 }
@@ -500,13 +633,21 @@ export default {
   border-radius: 30px;
 }
 .application-table ::v-deep {
+  thead {
+    th {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+  }
   tbody {
     tr {
       td {
-        padding-top: 20px !important;
-        padding-bottom: 20px !important;
-        padding-left: 0px !important;
-        padding-right: 0px !important;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+        &:nth-child(2) {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
       }
     }
   }

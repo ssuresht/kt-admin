@@ -80,13 +80,13 @@ export default {
           text: 'タグ',
           value: 'name',
           sortable: false,
-          width: '84%'
+          width: '90%'
         },
         {
           text: '',
           sortable: false,
           value: 'delete',
-          width: '16%'
+          width: '10%'
         }
       ],
       items: []

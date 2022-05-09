@@ -130,12 +130,6 @@ export default {
           width: '9.5%'
         },
         {
-          text: '大学名',
-          value: 'student.university_name',
-          sortable: false,
-          width: '21.38%'
-        },
-        {
           text: '対象月',
           value: 'posted_month',
           sortable: false,

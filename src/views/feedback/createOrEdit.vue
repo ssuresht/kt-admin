@@ -3,7 +3,7 @@
     <PageTitle
       :items="{
         title: 'フィードバック',
-        subTitle: '新規作成',
+        subTitle: '編集',
         back: {
           action: () => {
             $router.push({
@@ -53,12 +53,12 @@
                 v-if="field.type === 'autocomplete'"
                 :items="field.items"
                 v-model="field.value"
-                :search-input.sync="field.searched_text"
                 dense
                 outlined
+                :search-input.sync="field.searched_text"
                 @keyup="field.search_api(field)"
-                :hide-no-data="field.is_hide_no_data"
                 :loading="field.is_loading"
+                :hide-no-data="field.is_hide_no_data"
                 :item-text="field.item_text"
                 :item-value="field.item_value"
                 hide-selected
@@ -94,6 +94,18 @@
           </v-sheet>
           <div class="full-width d-flex align-center justify-center mb-9">
             <v-btn
+              v-if="pageType == 'edit'"
+              text
+              height="0"
+              class="mr-auto font-14px pa-0 ml-2 text-delete"
+              @click.prevent="dialog.delete = true"
+            >
+              <v-icon size="18" class="mr-1">
+                $WarningRed
+              </v-icon>
+              削除
+            </v-btn>
+            <v-btn
               @click="dialog.saveAsDraft = true"
               width="148px"
               height="35px"
@@ -118,6 +130,13 @@
       @submitSuccess="saveAsDraft()"
       @closeModel="dialog.saveAsDraft = false"
     ></SimpleModel>
+
+    <SimpleModel
+      text="Delete text here?"
+      :dialog="dialog.delete"
+      @submitSuccess="deleteFeedback()"
+      @closeModel="dialog.delete = false"
+    ></SimpleModel>
   </div>
 </template>
 <script>
@@ -133,7 +152,8 @@ export default {
       pageType: 'create',
       is_drafted: false,
       dialog: {
-        saveAsDraft: false
+        saveAsDraft: false,
+        delete: false
       },
       fields: [
         {
@@ -382,6 +402,14 @@ export default {
             this.$router.push({ name: 'Feedbacks' })
           })
       })
+    },
+    deleteFeedback() {
+      this.$store
+        .dispatch('FEEDBACK_DELETE', { id: this.$route.params.id })
+        .then(() => {
+          this.$router.push({ name: 'Feedbacks' })
+        })
+        .finally(() => (this.loading = false))
     }
   }
 }

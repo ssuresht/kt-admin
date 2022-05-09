@@ -66,7 +66,7 @@
         {{
           item.public_date && item.public_date != ''
             ? item.public_date
-            : '---- / - / -' | moment('YYYY/MM/DD H:mm')
+            : '---- / - / -' | moment('YYYY/MM/DD')
         }}
       </template>
     </DataTable>
@@ -96,7 +96,7 @@ export default {
         {
           text: 'タイトル',
           value: 'title',
-          width: '72.44%',
+          width: '65.44%',
           align: 'left',
           sortable: false
         },
@@ -115,10 +115,10 @@ export default {
           sortable: false
         },
         {
-          text: 'View',
+          text: '閲覧数',
           value: 'media_views_count',
           align: 'center',
-          width: '8%',
+          width: '15%',
           sortable: false
         }
       ]
@@ -135,7 +135,7 @@ export default {
       this.loading = true
 
       let data = {}
-      data.sort_by_order = e?.sortDesc[0] ? 'desc' : 'asc'
+      data.sort_by_order = e?.sortDesc[0] ? 'asc' : 'desc'
       data.sort_by = e?.sortBy[0] ? e.sortBy[0] : 'public_date'
       data.page = e?.page ? e.page : 1
       data.paginate = e?.itemsPerPage ? e.itemsPerPage : 25

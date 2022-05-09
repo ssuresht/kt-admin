@@ -47,7 +47,7 @@
 
               <div class="input-width pt-2">
                 <label class="d-block font-14px mb-1">
-                  <span>位置</span>
+                  <span>表示順位</span>
                 </label>
                 <validation-provider
                   v-slot="{ errors }"

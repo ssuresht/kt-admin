@@ -1,9 +1,13 @@
 import { mapGetters } from 'vuex'
+import { debounce } from 'debounce'
+
 export default {
   name: 'InternshipPostMixin',
   data() {
     return {
       userSiteUrl: process.env.VUE_APP_USER_SITE_URL,
+      isPreview: false,
+      previewURL: null,
       imageDetails: {
         previewImageURL: null,
         logoImage: null,
@@ -24,9 +28,6 @@ export default {
       isDraftOrPublic: 1 // public post
     }
   },
-  created() {
-    this.$store.dispatch('GET_MASTER_DATA')
-  },
   computed: {
     ...mapGetters([
       'getAllCompany',
@@ -36,33 +37,8 @@ export default {
   },
   methods: {
     preview() {
-      let formData = this.getInputsPageData()
-      let data = {}
-
-      data.internship_feature_id = []
-
-      for (let pair of formData.entries()) {
-        if (pair[0] == 'internship_feature_id[]') {
-          data.internship_feature_id.push(pair[1])
-        } else {
-          data[pair[0]] = pair[1]
-        }
-      }
-
-      if (
-        data.seo_featured_image &&
-        typeof data.seo_featured_image != 'string'
-      ) {
-        data.seo_featured_image = URL.createObjectURL(data.seo_featured_image)
-      } else {
-        data.seo_featured_image = this.getSingleInternship.seo_featured_image
-      }
-
-      this.$store.commit('INTERNSHIP_PREVIEW', data)
-      let routeData = this.$router.resolve({
-        name: 'InternshipPostPreview'
-      })
-      window.open(routeData.href, '_blank')
+      this.isPreview = true
+      this.saveAsDraft()
     },
     saveAsDraft() {
       this.basicInformation = this.basicInformation.filter(item => {
@@ -138,7 +114,12 @@ export default {
           .then(result => {
             if (result.status === 200) this.$refs.observer.reset()
 
-            this.$router.push({ name: 'InternshipPostList' })
+            if (this.isPreview) {
+              this.isPreview = false
+              this.dialog.preview = true
+            } else {
+              this.$router.push({ name: 'InternshipPostList' })
+            }
           })
           .catch(error => {
             if (error?.status == 422) {
@@ -153,6 +134,22 @@ export default {
       return `${item.internal_company_id} / ${item.name} ${item
         .business_industry?.name ?? ''}`
     },
+    searchCompany: debounce(function(field) {
+      field.is_loading = true
+
+      this.$store
+        .dispatch('COMPANY_GET_ALL', {
+          search: field.searched_text ?? null,
+          silent_loading: true,
+          page: 1,
+          paginate: 10,
+          showActive: 1
+        })
+        .then(() => {
+          field.items = this.getAllCompany
+          field.is_loading = false
+        })
+    }, 500),
     getPageFields() {
       this.basicInformation = [
         {
@@ -163,6 +160,10 @@ export default {
           row_class: '',
           item_value: 'id',
           item_text: this.getAutoSuggestionText,
+          searchable: true,
+          search_api: this.searchCompany,
+          is_loading: false,
+          searched_text: '',
           items: this.getAllCompany,
           value: '',
           rules: 'required',

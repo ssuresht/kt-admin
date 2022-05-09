@@ -7,7 +7,7 @@ function initialState() {
     singleInternship: {},
     internshipPagination: {},
     internshipCounts: {},
-    previewInternship: {}
+    previewPageURL: {}
   }
 }
 
@@ -18,7 +18,7 @@ const getters = {
   getSingleInternship: state => state.singleInternship,
   getInternshipPagination: state => state.internshipPagination,
   getInternshipCounts: state => state.internshipCounts,
-  getPreviewInternship: state => state.previewInternship
+  getPreviewPageURL: state => state.previewPageURL
 }
 
 const actions = {
@@ -137,22 +137,22 @@ const mutations = {
   ['INTERNSHIP_CREATE_SUCCESS']: (state, payload) => {
     state.status = 'success'
     state.singleInternship = payload.data.data
+    state.previewPageURL = getPreviewURL(state.singleInternship)
   },
 
   ['INTERNSHIP_UPDATE_SUCCESS']: (state, payload) => {
     state.status = 'success'
     state.singleInternship = payload.data.data
+    state.previewPageURL = getPreviewURL(state.singleInternship)
   },
 
   ['INTERNSHIP_DELETE_SUCCESS']: state => {
     state.status = 'success'
-  },
-
-  ['INTERNSHIP_PREVIEW']: (state, data) => {
-    state.status = 'success'
-    console.log('preview', data)
-    state.previewInternship = data
   }
+}
+
+function getPreviewURL(inter) {
+  return `${process.env.VUE_APP_USER_SITE_URL}internship-detail/${inter?.id}/${inter?.title}?preview=1`
 }
 
 export default {

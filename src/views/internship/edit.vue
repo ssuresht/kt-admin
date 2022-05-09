@@ -17,8 +17,10 @@
         ></PageTitle>
         <v-row>
           <v-col cols="8">
-            <InternshipBasicInformation :basicInformation="basicInformation"
-             :singleInternship="getSingleInternship" />
+            <InternshipBasicInformation
+              :basicInformation="basicInformation"
+              :singleInternship="getSingleInternship"
+            />
           </v-col>
           <v-col cols="4">
             <v-card height="314px" class="text-center pt-14">
@@ -35,6 +37,7 @@
               <v-btn
                 outlined
                 color="#13ABA3"
+                type="button"
                 @click="preview()"
                 min-width="150px"
                 width="259px"
@@ -49,7 +52,7 @@
                 min-width="150px"
                 width="259px"
                 depressed
-                >公開</v-btn
+                >更新＆公開</v-btn
               >
               <br />
               <v-btn
@@ -134,6 +137,11 @@
       @submitSuccess="deleteInformation()"
       @closeModel="dialog.deletePost = false"
     ></SimpleModel>
+    <InterPreviewModel
+      :dialog="dialog.preview"
+      @submitSuccess="preview()"
+      @closeModel="dialog.preview = false"
+    ></InterPreviewModel>
   </div>
 </template>
 
@@ -142,13 +150,15 @@ import ImageUpload from '@/components/ui/ImageUpload'
 import InternshipBasicInformation from '@/components/pages/PostInputs'
 import InternshipMixins from './internship.mixin'
 import SimpleModel from '@/components/models/SimpleModel'
+import InterPreviewModel from '@/components/models/InterPreviewModel'
 
 export default {
   name: 'InternshipPostEdit',
   components: {
     ImageUpload,
     InternshipBasicInformation,
-    SimpleModel
+    SimpleModel,
+    InterPreviewModel
   },
   mixins: [InternshipMixins],
   data() {
@@ -164,7 +174,8 @@ export default {
       ],
       dialog: {
         saveAsDraft: false,
-        deletePost: false
+        deletePost: false,
+        preview: false
       }
     }
   },
@@ -174,13 +185,9 @@ export default {
   },
   methods: {
     async getDataFromApi() {
-      await this.$store
-        .dispatch('COMPANY_GET_ALL', { showActive: 1 })
-        .then(() => {
-          this.getPageFields()
-        })
+      this.getPageFields()
 
-      this.$store
+      await this.$store
         .dispatch('INTERNSHIP_GET', { id: this.$route.params.id })
         .then(() => {
           this.setPageData()
@@ -197,6 +204,9 @@ export default {
           item.value = this.getSingleInternship.internship_feature_posts
             ? this.getSingleInternship.internship_feature_posts.map(i => i.id)
             : []
+        } else if (item.name == 'company_id') {
+          item.items = [this.getSingleInternship?.company] // Assign Items options
+          item.value = this.getSingleInternship[item.name]
         } else if (this.getSingleInternship?.[item.name]) {
           item.value = this.getSingleInternship[item.name]
         }

@@ -33,10 +33,6 @@
         >
       </template>
 
-      <template v-slot:[`item.university_name`]="{ item }">
-        <span>{{ item.university_name }}</span>
-      </template>
-
       <template v-slot:[`item.graduate_year`]="{ item }">
         <span>{{ item.graduate_year }}/{{ item.graduate_month }}</span>
       </template>

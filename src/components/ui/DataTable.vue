@@ -77,32 +77,30 @@
                 size="15"
                 class="swap-sorting-icon ml-1"
                 color="#fff"
-                v-if="header.sortable"
+                v-if="
+                  header.sortable && !header.heartIcon && !header.paperPlaneIcon
+                "
                 >$SwapVertical</v-icon
               >
             </th>
           </tr>
         </thead>
       </template>
+
       <template v-for="(_, slot) of $scopedSlots" v-slot:[slot]="scope">
-        <slot :name="slot" v-bind="scope"
-      /></template>
+        <slot :name="slot" v-bind="scope" />
+      </template>
     </v-data-table>
     <div class="text-center mt-5 pagination-main-outer" v-if="totalRecords > 0">
-      <!-- <v-pagination
-        v-model="currentPage"
-        :length="numberOfPages"
-    
-        circle
-      ></v-pagination> -->
-     
       <paginate
         :page-count="numberOfPages"
         :click-handler="pageUpdateFunction"
-        prev-text="prev"
-        :next-text="'Next'"
+        prev-text="<"
+        :next-text="'>'"
         :container-class="'pagination'"
       >
+        <span slot="prevContent"><v-icon size="10px">$LeftArrow</v-icon></span>
+        <span slot="nextContent"><v-icon size="10px">$RightArrow</v-icon></span>
       </paginate>
     </div>
   </div>
@@ -234,29 +232,24 @@ export default {
   list-style: none;
   display: flex;
   justify-content: center;
-  background-color: white;
   li {
-    margin: 5px;
-     font-size: 14px;
-    a{
+    margin: 10px;
+    font-size: 12px;
+    a {
       color: #1f2020;
     }
-    &.active{
-      width: 24px;
-      height: 24px;
+    &.active {
+      width: 20px;
+      height: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
-       background-color:#13aba3;
-       border-radius: 50%;
-       a{
-       color: white !important;
-       }
-      
+      background-color: #13aba3;
+      border-radius: 50%;
+      a {
+        color: white !important;
+      }
     }
-   
-    
   }
-
 }
 </style>
